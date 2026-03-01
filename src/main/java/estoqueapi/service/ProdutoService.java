@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import estoqueapi.dto.ProdutoRequestDTO;
+import estoqueapi.dto.ProdutoResponseDTO;
 
 @Service
 public class ProdutoService {
@@ -40,7 +42,26 @@ public class ProdutoService {
 
     }
     //Método para deletar um produto
-    public void deletarProduto(Long id) {
+    public void DeletarProduto(Long id) {
         produtoRepository.deleteById(id);
+    }
+
+    // Método para converter Produto em ProdutoResponseDTO
+    public ProdutoResponseDTO converterParaResponseDTO(Produto produto) {
+        return new ProdutoResponseDTO(
+                produto.getId(),
+                produto.getNome(),
+                produto.getPreco(),
+                produto.getQuantidade()
+        );
+    }
+
+    // Método para converter ProdutoRequestDTO em Produto
+    public Produto converterDTOemProduto(ProdutoRequestDTO dto) {
+        return new Produto(
+                dto.getNome(),
+                dto.getPreco(),
+                dto.getQuantidade()
+        );
     }
 }
